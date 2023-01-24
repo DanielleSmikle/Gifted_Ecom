@@ -3,10 +3,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
-class FeatureManager(models.Manager):
-    def get_queryset(self):
-        return super(FeatureManager, self).get_queryset().filter(is_active=True)
-
 class Collection(models.Model):
     name= models.CharField(max_length =255, db_index = True)
     slug = models.SlugField(max_length=255, unique=True, default='collection')
@@ -15,8 +11,8 @@ class Collection(models.Model):
         verbose_name_plural = 'collections'
 
     def get_absolute_url(self):
-        return reverse('gifted:collection_list', args= [self.slug])
-    
+        return reverse('gifted:collection_list', args=[self.slug])
+ 
     def __str__(self):
         return self.name
 
@@ -38,8 +34,7 @@ class Feature(models.Model):
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    objects= models.Manager()
-    features= FeatureManager()
+    
 
     class Meta:
         verbose_name_plural= 'Features'
@@ -47,7 +42,6 @@ class Feature(models.Model):
 
     def get_absolute_url(self):
         return reverse('gifted:feature_detail', args=[self.slug])
-
 
     def __str__(self):
         return self.scent
