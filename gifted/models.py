@@ -3,6 +3,12 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
+#will only produce data that is acrive/ avaiable 
+class FeatureManager(models.Manager):
+    def get_queryset(self):
+        return super(FeatureManager, self).get_queryset().filter(is_active=True)
+
+
 class Collection(models.Model):
     name= models.CharField(max_length =255, db_index = True)
     slug = models.SlugField(max_length=255, unique=True, default='collection')
@@ -34,6 +40,8 @@ class Feature(models.Model):
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+    features = FeatureManager()
     
 
     class Meta:

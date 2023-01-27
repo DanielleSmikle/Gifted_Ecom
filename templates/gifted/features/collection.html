@@ -1,5 +1,7 @@
 {% extends "../base.html" %}
 {% load static %}
+{% block title %}
+{% if collection %}{{ collection.name}}{% else %} Features{% endif %}
 
 {% block title %} Home {% endblock %}
 
