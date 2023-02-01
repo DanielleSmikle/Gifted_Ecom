@@ -33,7 +33,7 @@ class Feature(models.Model):
     scent = models.CharField(max_length =255)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='images/')
-    slug = models.SlugField(max_length=255, default='features')
+    slug = models.SlugField(max_length=260, default='features')
     size = models.CharField(max_length=5, choices= SIZE_CHOICES, default='small')
     price = models.FloatField()
     in_stock = models.BooleanField(default=True)
