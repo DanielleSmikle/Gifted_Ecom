@@ -39,8 +39,8 @@
                                 </select>
 
                             </div>
-                            <div class="col-6 text-end"><button type="button" class="btn btn-secondary btn-sm">Add to
-                                    basket</button></div>
+                            <div class="col-6 text-end">
+<button type="button" id="add-button" value="{{feature.id}}" class="btn btn-secondary btn-sm">Add to basket</button></div>
                         </div>
                     </div>
                 </div>
@@ -49,4 +49,27 @@
     </main>
 
 </div>
+
+<sript>
+    $(document).on('click', '#add-button', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{%url "cart:cart_add" %}',
+            data: {
+                featureid: $('#add-button').val(),
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: 'post' 
+            },
+            success: function (json) {
+
+            },
+        error: function (err, message, resp) {}
+
+        });
+    })
+
+</sript>
+
+
 {% endblock %}

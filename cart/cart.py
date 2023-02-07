@@ -9,7 +9,9 @@ class Cart():
         self.session = request.session
         cart = self.session.get('skey')
         if 'skey' not in request.session:    #if session is unavail. it i will create new 
-            cart = self.session['skey'] = {'number':123123123}
+            cart = self.session['skey'] = {}
         self.cart = cart
+
+    def add(self, feature):
 
     
