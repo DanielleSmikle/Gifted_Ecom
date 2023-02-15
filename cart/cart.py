@@ -13,10 +13,12 @@ class Cart():
         self.cart = cart
 
     def add(self, feature):
-        # adding and updating the users cart session data
+        # adding and updating the users cart session data 
 
         feature_id= feature.id 
 
         if feature_id not in self.cart:
             self.cart[feature_id] = {'price': feature.price }
+
+        self.session.modified = True
 
