@@ -12,8 +12,10 @@ def cart_add(request):
     cart = Cart(request)
     if request.POST.get('action') == 'post':
         feature_id = int(request.POST.get('featureid'))
+        feature_qty = int(request.POST.get('featureqty'))
         feature = get_object_or_404(Feature, id= feature_id)
-        cart.add(feature=feature)
-        response = JsonResponse({'test': 'data'})
+        cart.add(feature=feature, qty= feature_qty)
+        cartqty = cart.__len__()
+        response = JsonResponse({'qty': cartqty})
         return response 
 
