@@ -6,7 +6,8 @@ from gifted.models import Feature
 from .cart import Cart
 
 def cart_summary(request): 
-    return render(request, 'gifted/cart/summary.html')
+    cart= Cart(request)
+    return render(request, 'gifted/cart/summary.html', {'cart': cart})
 
 def cart_add(request):
     cart = Cart(request)
