@@ -50,27 +50,6 @@
 
 </div>
 
-<script>
-    $(document).on('click', '#add-button', function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '{%url "cart:cart_add" %}',
-            data: {
-                featureid: $('#add-button').val(),
-                featureqty: $('#select option:selected').text(),
-                csrfmiddlewaretoken: "{{csrf_token}}",
-                action: 'post' 
-            },
-            success: function (json) {
-                document.getElementById("cart-qty").innerHTML = json.qty
-            },
-        error: function (err, message, resp) {}
-
-        });
-    })
-
-</script>
 
 
 {% endblock %}
