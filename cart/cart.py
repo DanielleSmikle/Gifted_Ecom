@@ -8,6 +8,7 @@ class Cart():
         self.session = request.session
         cart = self.session.get('skey')
         if 'skey' not in request.session:    #if session is unavail. it i will create new one 
-            cart = self.session['skey'] = {}
+            cart = self.session['skey'] = {} #makes a new session
         self.cart = cart
 
+ 
