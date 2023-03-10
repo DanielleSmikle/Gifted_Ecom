@@ -40,7 +40,7 @@
 
                             </div>
                             <div class="col-6 text-end">
-<button type="button" id="add-button" value="{{feature.id}}" class="btn btn-secondary btn-sm">Add to basket</button></div>
+<button type="button" id="add-button" value="{{feature.id}}" class="btn btn-secondary btn-sm">Add to Cart</button></div>
                         </div>
                     </div>
                 </div>
@@ -50,6 +50,27 @@
 
 </div>
 
+<script>
+    $(document).on('click', '#add-button', function (e){
+        e.preventDefault();
+        console.log()
+        $.ajax({
+            type: 'POST', 
+            url: '{% url "cart:cart_add" %}',
+            data: {
+                featureid: $('#add-button').val(),
+                featureqty: $('#select option:selected').text(),
+                csrfmiddlewaretoken: "{{csrf_token}}", 
+                action: 'post'
+            },
+            success: function (json) {
+
+            },
+            error: function (xhr, errmsg, err) {}
+
+        })
+    })
+</script>
 
 
 

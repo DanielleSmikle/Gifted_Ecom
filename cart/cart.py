@@ -11,4 +11,13 @@ class Cart():
             cart = self.session['skey'] = {} #makes a new session
         self.cart = cart
 
+    def add(self, feature, qty):
+        feature_id = feature.id
+
+        if feature_id not in self.cart:
+            self.cart[feature_id] = {'price': str(feature.price), 'qty':int(qty)}
+
+        self.session.modified = True
+
+
  
