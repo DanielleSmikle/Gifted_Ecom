@@ -53,7 +53,6 @@
 <script>
     $(document).on('click', '#add-button', function (e){
         e.preventDefault();
-        console.log()
         $.ajax({
             type: 'POST', 
             url: '{% url "cart:cart_add" %}',
@@ -64,7 +63,7 @@
                 action: 'post'
             },
             success: function (json) {
-
+                document.getElementById('cart-qty').innerHTML = json.qty
             },
             error: function (xhr, errmsg, err) {}
 
