@@ -18,6 +18,10 @@ class Cart():
             self.cart[feature_id] = {'price': str(feature.price), 'qty':int(qty)}
 
         self.session.modified = True
+    
+    def __len__(self):              ##to get cart data/count qty
+        return sum(item['qty'] for item in self.cart.values())
+
 
 
  
