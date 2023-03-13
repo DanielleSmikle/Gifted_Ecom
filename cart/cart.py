@@ -34,11 +34,13 @@ class Cart():
             item['total_price'] = item['price'] * item['qty']
             yield item
 
-
-    
     
     def __len__(self):              ##to get cart data/count qty
         return sum(item['qty'] for item in self.cart.values())
+
+
+    def get_total_price(self):
+        return sum(Decimal(item['price']) * item['qty'] for item in self.cart.values())
 
 
 
