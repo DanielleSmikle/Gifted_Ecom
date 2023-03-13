@@ -19,7 +19,7 @@ class Cart():
         if feature_id not in self.cart:
             self.cart[feature_id] = {'price': str(feature.price), 'qty':int(qty)}
 
-        self.session.modified = True
+        self.save()
     
     def __iter__(self): 
         feature_ids = self.cart.keys()
@@ -41,6 +41,19 @@ class Cart():
 
     def get_total_price(self):
         return sum(Decimal(item['price']) * item['qty'] for item in self.cart.values())
+
+
+    def delete(self, feature):     ##deletes item from session data
+        feature_id= feature
+        
+        if feature_id in self.cart:
+            del self.cart[feature_id]
+        
+        self.session.modified = True
+
+    def save(self):
+        self.session.modified = True
+
 
 
 
