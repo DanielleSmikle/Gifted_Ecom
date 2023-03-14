@@ -45,7 +45,7 @@
                             <button type="button" id="add-button" value="{{feature.id}}"class="btn btn-outline-secondary btn-sm">
                             Update
                             </button>
-                            <button type="button" id="delete-button" value="{{feature.id}}" class="btn btn-outline-secondary btn-sm">
+                            <button type="button" id="delete-button" data-index="{{feature.id}}" class="btn btn-outline-secondary btn-sm delete-button">
                             Delete
                         </button>
                     </div>
@@ -63,17 +63,19 @@
 </main>
 
 <script>
-    $(document).on('click', '#delete-button', function (e){
+    $(document).on('click', '.delete-button', function (e){
         e.preventDefault();
+        var featid= $(this).data('index');
         $.ajax({
             type: 'POST', 
             url: '{% url "cart:cart_delete" %}',
             data: {
-                featureid: $('#add-button').val(),
+                featureid: $(this).data('index'),
                 csrfmiddlewaretoken: "{{csrf_token}}", 
                 action: 'post'
             },
             success: function (json) {
+                $('.feature-item[data-index="'+ featid + '"]').remove()
             },
             error: function (xhr, errmsg, err) {}
 
