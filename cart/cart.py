@@ -44,8 +44,8 @@ class Cart():
 
 
     def delete(self, feature):     ##deletes item from session data
-        feature_id= feature
-        
+        feature_id= str(feature)
+      
         if feature_id in self.cart:
             del self.cart[feature_id]
         

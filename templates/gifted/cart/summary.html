@@ -42,10 +42,10 @@
                                 <option value="">9</option>
                                 <option value="">10</option>
                             </select>
-                            <button type="button" id="update-button" data-index="{{feature.id}}"class="btn btn-outline-secondary btn-sm update-button">
+                            <button type="button" id="add-button" value="{{feature.id}}"class="btn btn-outline-secondary btn-sm">
                             Update
                             </button>
-                            <button type="button" id="delete-button" data-index="{{feature.id}}" class="btn btn-outline-secondary btn-sm delete-button">
+                            <button type="button" id="delete-button" value="{{feature.id}}" class="btn btn-outline-secondary btn-sm">
                             Delete
                         </button>
                     </div>
@@ -57,7 +57,7 @@
         {% endwith %}
         {% endfor %}
         <div class="col-12 text-end">
-        <div class="h6 fw-bold">Sub Total: $<div id="subtotal" class="d-inline-flex">{{cart.get_total_price}}</div>
+        <div class="h6 fw-bold">Sub Total: $<span id="subtotal" class="d-inline-flex">{{cart.get_total_price}}</span></div>
         </div>
     </div>
 </main>
