@@ -42,7 +42,7 @@
                                 <option value="">9</option>
                                 <option value="">10</option>
                             </select>
-                            <button type="button" id="add-button" value="{{feature.id}}"class="btn btn-outline-secondary btn-sm">
+                            <button type="button" id="update-button" data-index="{{feature.id}}" class="btn btn-outline-secondary btn-sm update-button">
                             Update
                             </button>
                             <button type="button" id="delete-button" data-index="{{feature.id}}" class="btn btn-outline-secondary btn-sm delete-button">
@@ -63,6 +63,7 @@
 </main>
 
 <script>
+    //to delete
     $(document).on('click', '.delete-button', function (e){
         e.preventDefault();
         var featid= $(this).data('index');
@@ -76,6 +77,27 @@
             },
             success: function (json) {
                 $('.feature-item[data-index="'+ featid + '"]').remove()
+            },
+            error: function (xhr, errmsg, err) {}
+
+        })
+    })
+
+
+    //to update
+    $(document).on('click', '.update-button', function (e){
+        e.preventDefault();
+        var featid= $(this).data('index');
+        $.ajax({
+            type: 'POST', 
+            url: '{% url "cart:cart_update" %}',
+            data: {
+                featureid: $(this).data('index'),
+                featureqty: $('#select' + featid +' option:selected').text(),
+                csrfmiddlewaretoken: "{{csrf_token}}", 
+                action: 'post'
+            },
+            success: function (json) {
             },
             error: function (xhr, errmsg, err) {}
 
