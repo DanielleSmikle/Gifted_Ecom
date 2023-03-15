@@ -14,10 +14,12 @@ class Cart():
         self.cart = cart
 
     def add(self, feature, qty):
-        feature_id = feature.id
+        feature_id = str(feature.id)
 
-        if feature_id not in self.cart:
-            self.cart[feature_id] = {'price': str(feature.price), 'qty':int(qty)}
+        if feature_id in self.cart:
+            self.cart[feature_id]['qty'] = qty
+        else:
+            self.cart[feature_id] = {'price': str(feature.price), 'qty': qty}
 
         self.save()
     
