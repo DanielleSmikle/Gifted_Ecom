@@ -38,13 +38,6 @@ class Cart():
     def __len__(self):              ##to get cart data/count qty
         return sum(item['qty'] for item in self.cart.values())
 
-    def update(self, feature, qty):    ##update session data values
-        feature_id = feature
-        qty= qty
-
-        if feature_id in self.cart:
-            self.cart[feature_id]['qty']= qty
-
 
     def get_total_price(self):
         return sum(Decimal(item['price']) * item['qty'] for item in self.cart.values())
@@ -54,9 +47,19 @@ class Cart():
         feature_id= str(feature)
       
         if feature_id in self.cart:
+            print(feature_id)
             del self.cart[feature_id]
         
-        self.session.modified = True
+        self.save()
+
+    def update(self, feature, qty):    ##update session data values
+        feature_id = str(feature)
+        qty = qty
+
+        if feature_id  in self.cart:
+            self.cart[feature_id]['qty'] = qty
+
+        self.save()
 
     def save(self):
         self.session.modified = True
