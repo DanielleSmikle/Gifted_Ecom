@@ -1,10 +1,9 @@
-from gifted.models import Feature
 from decimal import Decimal
 
+from gifted.models import Feature
 
 
 class Cart():
-
 #initialize method, function will be ran right away with new obj created 
     def __init__(self, request):
         self.session = request.session
@@ -36,14 +35,11 @@ class Cart():
             item['total_price'] = item['price'] * item['qty']
             yield item
 
-    
     def __len__(self):              ##to get cart data/count qty
         return sum(item['qty'] for item in self.cart.values())
 
-
     def get_total_price(self):
         return sum(Decimal(item['price']) * item['qty'] for item in self.cart.values())
-
 
     def delete(self, feature):     ##deletes item from session data
         feature_id= str(feature)
@@ -65,8 +61,3 @@ class Cart():
 
     def save(self):
         self.session.modified = True
-
-
-
-
- 

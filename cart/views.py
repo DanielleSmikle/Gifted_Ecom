@@ -1,9 +1,10 @@
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
 
 from gifted.models import Feature
+
 from .cart import Cart
+
 
 def cart_summary(request):
     cart = Cart(request)

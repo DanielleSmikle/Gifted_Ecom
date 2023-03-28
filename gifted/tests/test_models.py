@@ -1,7 +1,8 @@
-from django.test import TestCase
 from django.contrib.auth.models import User
+from django.test import TestCase
 
 from gifted.models import Collection, Feature
+
 
 class TestCollectionsModel(TestCase):
 
@@ -21,7 +22,7 @@ class TestCollectionsModel(TestCase):
 
 class TestFeatureModel(TestCase):
     def setUp(self):
-        Collection.objects.create(name='django', slug='cashmere-musk')
+        Collection.objects.create(name='cashmere-musk', slug='cashmere-musk')
         User.objects.create(username='admin')
         self.data1 = Feature.objects.create(collection_id=1, scent= 'cashmere musk', created_by_id=1,
                                             slug= 'cashmere-musk', price='10.05', image='cashmere')
