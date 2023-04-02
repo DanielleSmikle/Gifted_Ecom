@@ -3,13 +3,12 @@ from decimal import Decimal
 from gifted.models import Feature
 
 
-class Cart():
-#initialize method, function will be ran right away with new obj created 
+class Cart(): #initialize method, function will be ran right away with new obj created 
     def __init__(self, request):
         self.session = request.session
         cart = self.session.get('skey')
-        if 'skey' not in request.session:    #if session is unavail. it i will create new one 
-            cart = self.session['skey'] = {} #makes a new session
+        if 'skey' not in request.session:#if session is unavail. it i will create new one 
+            cart = self.session['skey'] ={} #makes a new session
         self.cart = cart
 
     def add(self, feature, qty):
@@ -22,26 +21,26 @@ class Cart():
 
         self.save()
     
-    def __iter__(self): 
+    def __iter__(self):
         feature_ids = self.cart.keys()
         features = Feature.features.filter(id__in=feature_ids)
         cart = self.cart.copy()
 
         for feature in features:
             cart[str(feature.id)]['feature']= feature
-        
+
         for item in cart.values():
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['qty']
             yield item
 
-    def __len__(self):              ##to get cart data/count qty
+    def __len__(self): ##to get cart data/count qty
         return sum(item['qty'] for item in self.cart.values())
 
     def get_total_price(self):
         return sum(Decimal(item['price']) * item['qty'] for item in self.cart.values())
 
-    def delete(self, feature):     ##deletes item from session data
+    def delete(self, feature):  ##deletes item from session data
         feature_id= str(feature)
       
         if feature_id in self.cart:

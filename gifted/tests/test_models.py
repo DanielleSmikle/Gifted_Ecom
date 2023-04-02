@@ -14,11 +14,9 @@ class TestCollectionsModel(TestCase):
         data = self.data1
         self.assertTrue(isinstance(data, Collection))
 
-
     def test_collection_model_entry(self):
         data = self.data1
         self.assertEqual(str(data), 'django')
-
 
 class TestFeatureModel(TestCase):
     def setUp(self):
@@ -30,4 +28,4 @@ class TestFeatureModel(TestCase):
 def test_features_model_entry(self):
     data = self.data1
     self.assertTrue(isinstance(data, Feature))
-    self.asssertEqual(str(data), 'cashmere-musk')
+    self.asssertEqual(str(data),'cashmere-musk')

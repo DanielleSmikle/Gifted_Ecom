@@ -1,10 +1,7 @@
-
 import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
 
 SECRET_KEY = 'django-insecure-u$^=lj$2j14h!uy)q1(if9s)e@a_xjay4x2)ei3ojec0v1usn*'
 
@@ -82,8 +79,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -91,8 +86,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
-
 
 
 STATIC_URL = 'static/'
@@ -103,7 +96,5 @@ STATICFILES_DIRS= [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
-
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
