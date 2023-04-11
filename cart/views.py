@@ -29,6 +29,7 @@ def cart_delete(request):
     if request.POST.get('action') == 'post':
         feature_id = int(request.POST.get('featureid'))
         cart.delete(feature=feature_id)
+        
         cartqty = cart.__len__()
         carttotal = cart.get_total_price()
         response = JsonResponse({'qty': cartqty, 'subtotal' : carttotal})
