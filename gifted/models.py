@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
@@ -30,6 +30,7 @@ SIZE_CHOICES = (
 
 class Feature(models.Model):
     collection = models.ForeignKey(Collection, related_name='feature', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='feature_creator')
     scent = models.CharField(max_length =255)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='images/')
