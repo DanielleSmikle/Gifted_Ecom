@@ -10,3 +10,5 @@ class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
     
     
 account_activation_token =AccountActivationTokenGenerator()
+
+#creates unique token for newuser to sign up, checks to see if user is valid, then account will be activated 
