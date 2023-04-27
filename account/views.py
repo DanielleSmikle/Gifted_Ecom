@@ -1,24 +1,23 @@
 from django.shortcuts import render
-# from django.http import HttpResponse
+from django.http import HttpResponse
 from .forms import RegistrationForm
-# from .token import account_activation_token
-# from django.template.loader import render_to_string
-# from django.contrib.auth.decorators import login_required
+from .token import account_activation_token
+from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 
-# from django.contrib.sites.shortcuts import get_current_site
-# from django.utils.encoding import force_bytes, force_str
-# from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-# from .models import UserBase
-# from .forms import RegistrationForm
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from .models import UserBase
+from .forms import RegistrationForm
 
 
-# @login_required
-# def dashboard(request):
-#     return render(request, 'account/user/dashboard.html')
+@login_required
+def dashboard(request):
+    return render(request, 
+                  'account/user/dashboard.html')
 
 def account_register(request):
-
-    
     if request.method == 'POST':
         registerForm = RegistrationForm(request.POST)
         if registerForm.is_valid():
@@ -41,6 +40,19 @@ def account_register(request):
         registerForm = RegistrationForm()
     return render(request, 'account/registration/register.html', {'form':registerForm })
 
+def account_activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = UserBase.objects.get(pk=uid)
+    except:
+        pass
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        return redirect('account:dashboard')
+    else:
+        return render(request, 'account/registration/activation_invalid.html')
   
     
 
