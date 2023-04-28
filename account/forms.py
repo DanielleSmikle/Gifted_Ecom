@@ -4,13 +4,13 @@ from .models import UserBase
 
 class RegistrationForm(forms.ModelForm):
     user_name = forms.CharField(label= 'Enter Username', min_length=4, max_length=50, help_text='Required')
-    email = forms.EmailField(max_length=100, help_text ='Required', error_messages={'required': 'Sorry, you will need an emaail'})
+    email_address = forms.EmailField(max_length=100, help_text ='Required', error_messages={'required': 'Sorry, you will need an email address'})
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label ='Repeat password', widget=forms.PasswordInput)
 
     class Meta: 
         model = UserBase
-        fields = ('user_name', 'email',)
+        fields = ('user_name', 'email_address',)
 
     def clean_username(self):
         user_name = self.cleaned_data['user_name'].lower()
@@ -25,19 +25,19 @@ class RegistrationForm(forms.ModelForm):
             raise forms.ValidationError('Passwords do not match.')
         return cd['password2']   #making sure user password is correct 
     
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        if UserBase.objects.filter(email=email).exists():
+    def clean_email_address(self):
+        email_address = self.cleaned_data['email_address']
+        if UserBase.objects.filter(email_address=email_address).exists():
             raise forms.ValidationError(
-                'Please use another Email, that is already taken')
-        return email
+                'Please use another email address, that is already taken')
+        return email_address
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['user_name'].widget.attrs.update(
             {'class': 'form-control mb-3', 'placeholder': 'Username'})
-        self.fields['email'].widget.attrs.update(
-            {'class': 'form-control mb-3', 'placeholder': 'E-mail', 'name': 'email', 'id': 'id_email'})
+        self.fields['email_address'].widget.attrs.update(
+            {'class': 'form-control mb-3', 'placeholder': 'E-mail', 'name': 'email_address', 'id': 'id_email_address'})
         self.fields['password'].widget.attrs.update(
             {'class': 'form-control mb-3', 'placeholder': 'Password'})
         self.fields['password2'].widget.attrs.update(

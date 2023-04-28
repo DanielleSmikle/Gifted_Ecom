@@ -12,7 +12,7 @@ class Cart(): #initialize method, function will be ran right away with new obj c
         self.cart = cart
 
     def add(self, feature, qty):
-        feature_id = str(feature.id)
+        feature_id = str(d)
 
         if feature_id in self.cart:
             self.cart[feature_id]['qty'] = qty
