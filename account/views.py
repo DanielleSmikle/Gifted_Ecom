@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.contrib.auth import login
 from django.http import HttpResponse
 from .forms import RegistrationForm
+from django.shortcuts import redirect
 from .token import account_activation_token
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
@@ -36,6 +38,7 @@ def account_register(request):
                 'token': account_activation_token.make_token(user),
             })
             user.email_address(subject=subject, message=message)
+            return HttpResponse('registered successfully and activiation sent')
     else:
         registerForm = RegistrationForm()
     return render(request, 'account/registration/register.html', {'form':registerForm })
