@@ -13,8 +13,6 @@ class UserLoginForm(AuthenticationForm):
         }
     ))
 
-
-
 class RegistrationForm(forms.ModelForm):
     user_name = forms.CharField(label= 'Enter Username', min_length=4, max_length=50, help_text='Required')
     email_address = forms.EmailField(max_length=100, help_text ='Required', error_messages={'required': 'Sorry, you will need an email address'})
@@ -55,6 +53,27 @@ class RegistrationForm(forms.ModelForm):
             {'class': 'form-control mb-3', 'placeholder': 'Password'})
         self.fields['password2'].widget.attrs.update(
             {'class': 'form-control', 'placeholder': 'Repeat Password'})
+        
+class UserEditForm(forms.ModelForm):
+
+    email_address = forms.EmailField(
+        label='Account email (can not be changed)', max_length=200, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'email', 'id': 'form-email', 'readonly': 'readonly'}))
+    
+    first_name = forms.CharField(
+        label='Username', min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Firstname', 'id': 'form-lastname'}))
+    
+    class Meta:
+        model= UserBase
+        fields = ('email_address', 'first_name',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['email_address'].required = True
+        
+    
 
      
         
