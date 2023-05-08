@@ -31,10 +31,19 @@ def edit_details(request):
     return render(request,
                   'account/user/edit_details.html', {'user_form': user_form})
 
+@login_required
+def delete_user(request):
+    user = UserBase.objects.get(user_name = request.user)
+    user.is_active = False
+    user.save()
+    logout(request)
+    return redirect('account:delete_confirmation')
+
 
 def account_register(request):
     if request.method == 'POST':
         registerForm = RegistrationForm(request.POST)
+        
         if registerForm.is_valid():
             user = registerForm.save(commit=False)
             user.email_address = registerForm.cleaned_data['email_address']
@@ -50,12 +59,12 @@ def account_register(request):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
-            user.email_address(subject=subject, message=message)
+            # user.email_user(subject=subject, message=message)
             return HttpResponse('registered successfully and activiation sent')
+        
     else:
         registerForm = RegistrationForm()
     return render(request, 'account/registration/register.html', {'form':registerForm })
-
 def account_activate(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
