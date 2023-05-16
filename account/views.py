@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.http import HttpResponse
 from .forms import RegistrationForm, UserEditForm
 from django.shortcuts import redirect
@@ -46,25 +46,26 @@ def account_register(request):
         
         if registerForm.is_valid():
             user = registerForm.save(commit=False)
-            user.email_address = registerForm.cleaned_data['email_address']
+            user.email = registerForm.cleaned_data['email']
             user.set_password(registerForm.cleaned_data['password'])
             user.is_active = False
             user.save()
-            # email_address setup
+            # email setup
             current_site = get_current_site(request)
             subject = 'Activate your Account'
-            message = render_to_string('account/registration/account_activation_email_address.html', {
+            message = render_to_string('account/registration/account_activation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
-            # user.email_user(subject=subject, message=message)
+            user.email_user(subject=subject, message=message)
             return HttpResponse('registered successfully and activiation sent')
         
     else:
         registerForm = RegistrationForm()
     return render(request, 'account/registration/register.html', {'form':registerForm })
+
 def account_activate(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
