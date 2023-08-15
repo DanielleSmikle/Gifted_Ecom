@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'gifted',
     'cart',
     'account',
+    'django_countries'
 
 ]
 
